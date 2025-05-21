@@ -1,0 +1,62 @@
+﻿BEGIN TRANSACTION;
+
+CREATE TABLE IF NOT EXISTS "Users" (
+    "Id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NOT NULL,
+    "Email" TEXT NOT NULL UNIQUE,
+    "PasswordHash" TEXT NOT NULL,
+    "Role" TEXT NOT NULL CHECK("Role" IN ('artist', 'organizer', 'visitor')),
+    "Experience" TEXT,
+    "CreativeInterests" TEXT
+);
+
+CREATE TABLE IF NOT EXISTS "Locations" (
+    "Id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NOT NULL,
+    "Description" TEXT,
+    "Address" TEXT,
+    "Capacity" INTEGER,
+    "Photo" BLOB
+);
+
+CREATE TABLE IF NOT EXISTS "CulturalEvents" (
+    "Id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "Title" TEXT NOT NULL,
+    "Description" TEXT,
+    "StartDateTime" TEXT NOT NULL,
+    "EndDateTime" TEXT NOT NULL,
+    "LocationId" INTEGER NOT NULL,
+    "OrganizerId" INTEGER NOT NULL,
+    "Status" TEXT NOT NULL DEFAULT 'scheduled' CHECK("Status" IN ('scheduled', 'cancelled', 'completed')),
+    FOREIGN KEY("OrganizerId") REFERENCES "Users"("Id"),
+    FOREIGN KEY("LocationId") REFERENCES "Locations"("Id")
+);
+
+CREATE TABLE IF NOT EXISTS "ArtistToCulturalEventMap" (
+    "Id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "ArtistId" INTEGER NOT NULL,
+    "CulturalEventId" INTEGER NOT NULL,
+    FOREIGN KEY("ArtistId") REFERENCES "Users"("Id"),
+    FOREIGN KEY("CulturalEventId") REFERENCES "CulturalEvents"("Id")
+);
+
+CREATE TABLE IF NOT EXISTS "Feedbacks" (
+    "Id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "CulturalEventId" INTEGER NOT NULL,
+    "UserId" INTEGER NOT NULL,
+    "Rating" INTEGER NOT NULL CHECK("Rating" >= 1 AND "Rating" <= 5),
+    "Comment" TEXT,
+    FOREIGN KEY("UserId") REFERENCES "Users"("Id"),
+    FOREIGN KEY("CulturalEventId") REFERENCES "CulturalEvents"("Id")
+);
+
+CREATE TABLE IF NOT EXISTS "VisitorToCulturalEventMap" (
+    "Id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "UserId" INTEGER NOT NULL,
+    "CulturalEventId" INTEGER NOT NULL,
+    "RegisteredAt" TEXT NOT NULL,
+    FOREIGN KEY("UserId") REFERENCES "Users"("Id"),
+    FOREIGN KEY("CulturalEventId") REFERENCES "CulturalEvents"("Id")
+);
+
+COMMIT;

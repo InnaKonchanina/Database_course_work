@@ -1,0 +1,26 @@
+﻿using DatabaseCourceWork.DesktopApplication.Database.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace DatabaseCourceWork.DesktopApplication.Database
+{
+    internal class DatabaseContext : DbContext
+    {
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Location> Locations { get; set; } = null!;
+        public DbSet<CulturalEvent> CulturalEvents { get; set; } = null!;
+        public DbSet<ArtistToCulturalEventMap> ArtistToCulturalEventMaps { get; set; } = null!;
+        public DbSet<VisitorToCulturalEventMap> VisitorToCulturalEventMaps { get; set; } = null!;
+        public DbSet<Feedback> Feedbacks { get; set; } = null!;
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+            => options.UseSqlite("Data Source=Database/DbFiles/FestivalDB.db");
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().Property(u => u.Role).HasConversion<string>();
+            modelBuilder.Entity<CulturalEvent>().Property(e => e.Status).HasConversion<string>();
+
+            // Optional: enforce composite uniqueness or keys if needed
+        }
+    }
+}

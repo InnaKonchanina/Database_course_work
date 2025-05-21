@@ -1,0 +1,64 @@
+-- Users Table
+CREATE TABLE Users (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT NOT NULL,
+    Email TEXT NOT NULL UNIQUE,
+    PasswordHash TEXT NOT NULL,
+    Role TEXT CHECK(Role IN ('artist', 'organizer', 'visitor')) NOT NULL,
+    Experience TEXT,
+    CreativeInterests TEXT
+);
+
+-- Locations Table
+CREATE TABLE Locations (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT NOT NULL,
+    Description TEXT,
+    Address TEXT,
+    Capacity INTEGER,
+    Photo BLOB
+);
+
+-- Events Table
+CREATE TABLE Events (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Title TEXT NOT NULL,
+    Description TEXT,
+    StartDateTime TEXT NOT NULL,
+    EndDateTime TEXT NOT NULL,
+    LocationId INTEGER NOT NULL,
+    OrganizerId INTEGER NOT NULL,
+    Status TEXT CHECK(Status IN ('scheduled', 'cancelled', 'completed')) NOT NULL DEFAULT 'scheduled',
+    FOREIGN KEY (LocationId) REFERENCES Locations(Id),
+    FOREIGN KEY (OrganizerId) REFERENCES Users(Id)
+);
+
+-- ArtistToEventMap Table (artist linked to event)
+CREATE TABLE ArtistToEventMap (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ArtistId INTEGER NOT NULL,
+    EventId INTEGER NOT NULL,
+    FOREIGN KEY (ArtistId) REFERENCES Users(Id),
+    FOREIGN KEY (EventId) REFERENCES Events(Id)
+);
+
+-- Feedback Table (user feedback after event)
+CREATE TABLE Feedbacks (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    EventId INTEGER NOT NULL,
+    UserId INTEGER NOT NULL,
+    Rating INTEGER CHECK(Rating >= 1 AND Rating <= 5) NOT NULL,
+    Comment TEXT,
+    FOREIGN KEY (EventId) REFERENCES Events(Id),
+    FOREIGN KEY (UserId) REFERENCES Users(Id)
+);
+
+-- VisitorToEventMap Table (visitors registered for events)
+CREATE TABLE VisitorToEventMap (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL,
+    EventId INTEGER NOT NULL,
+    RegisteredAt TEXT NOT NULL,
+    FOREIGN KEY (UserId) REFERENCES Users(Id),
+    FOREIGN KEY (EventId) REFERENCES Events(Id)
+);

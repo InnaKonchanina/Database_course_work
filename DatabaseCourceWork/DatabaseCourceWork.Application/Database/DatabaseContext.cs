@@ -17,8 +17,7 @@ namespace DatabaseCourceWork.DesktopApplication.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().Property(u => u.Role).HasConversion<string>();
-            modelBuilder.Entity<CulturalEvent>().Property(e => e.Status).HasConversion<string>();
+           
 
             // Optional: enforce composite uniqueness or keys if needed
         }

@@ -11,7 +11,7 @@ namespace DatabaseCourceWork.DesktopApplication
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            DatabaseManager databaseManager = new DatabaseManager();
+
         }
     }
 

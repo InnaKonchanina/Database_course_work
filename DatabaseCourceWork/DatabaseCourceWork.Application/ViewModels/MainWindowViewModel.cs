@@ -7,9 +7,13 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels
         public MainWindowViewModel()
         {
             Title = "Hello MVVM!";
+            CurrentViewModel = new LoginViewModel();
         }
 
         [ObservableProperty]
         private string title;
+
+        [ObservableProperty]
+        private ObservableObject currentViewModel;
     }
 }

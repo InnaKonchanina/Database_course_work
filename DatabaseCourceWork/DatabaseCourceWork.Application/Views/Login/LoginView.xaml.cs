@@ -1,8 +1,8 @@
-﻿using DatabaseCourceWork.DesktopApplication.ViewModels;
+﻿using DatabaseCourceWork.DesktopApplication.ViewModels.Login;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace DatabaseCourceWork.DesktopApplication.Views
+namespace DatabaseCourceWork.DesktopApplication.Views.Login
 {
     /// <summary>
     /// Interaction logic for LoginView.xaml

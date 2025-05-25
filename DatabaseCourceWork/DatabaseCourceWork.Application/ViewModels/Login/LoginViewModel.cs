@@ -1,14 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DatabaseCourceWork.DesktopApplication.Database;
+using DatabaseCourceWork.DesktopApplication.Database.Models;
+using DatabaseCourceWork.DesktopApplication.Utils.DatabaseCourceWork.DesktopApplication.Services;
 using DatabaseCourceWork.DesktopApplication.ViewModels.Base;
-using DatabaseCourceWork.DesktopApplication.Views;
+using DatabaseCourceWork.DesktopApplication.Views.Login;
 using System.ComponentModel.DataAnnotations;
-using System.Windows;
 
-namespace DatabaseCourceWork.DesktopApplication.ViewModels
+namespace DatabaseCourceWork.DesktopApplication.ViewModels.Login
 {
     internal partial class LoginViewModel : BaseViewModel
     {
+        public LoginViewModel(MainWindowViewModel mainWindowViewModel)
+            : base(mainWindowViewModel)
+        {
+            Email = "stas@stas.com";
+        }
+
         [ObservableProperty]
         [NotifyDataErrorInfo]
         [EmailAddress]
@@ -28,16 +36,19 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels
             !string.IsNullOrWhiteSpace(Password) &&
             !HasErrors;
 
-        public LoginViewModel()
-        {
-
-        }
-
         [RelayCommand(CanExecute = nameof(CanLogin))]
         private void Login()
         {
-            // Example login logic
-            System.Windows.MessageBox.Show($"Logging in as {Email}");
+            User? user = DatabaseManager.Instance.TryLogin(Email, Password);
+
+            if (user == null)
+            {
+                MessageBoxProvider.Instance.ShowWarning("Failed to login");
+            }
+            else
+            {
+                _mainWindowViewModel.NavigateToHome(user);
+            }
         }
 
         [RelayCommand]
@@ -45,7 +56,7 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels
         {
             var registerWindow = new RegisterWindow()
             {
-                DataContext = new RegisterViewModel()
+                DataContext = new RegisterViewModel(_mainWindowViewModel)
             };
             registerWindow.ShowDialog();
         }

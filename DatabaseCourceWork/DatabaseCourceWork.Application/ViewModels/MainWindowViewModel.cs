@@ -1,4 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using DatabaseCourceWork.DesktopApplication.Database.Models;
+using DatabaseCourceWork.DesktopApplication.Database.Models.Enums;
+using DatabaseCourceWork.DesktopApplication.ViewModels.ArtistViewModels;
+using DatabaseCourceWork.DesktopApplication.ViewModels.Login;
+using DatabaseCourceWork.DesktopApplication.ViewModels.OrganizerViewModels;
+using DatabaseCourceWork.DesktopApplication.ViewModels.VisitorViewModels;
 
 namespace DatabaseCourceWork.DesktopApplication.ViewModels
 {
@@ -6,14 +12,33 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels
     {
         public MainWindowViewModel()
         {
-            Title = "Hello MVVM!";
-            CurrentViewModel = new LoginViewModel();
+            NavigateToLogin();
         }
 
         [ObservableProperty]
-        private string title;
-
-        [ObservableProperty]
         private ObservableObject currentViewModel;
+
+        public void NavigateToHome(User user)
+        {
+            switch (user.UserRole)
+            {
+                case UserRole.Artist:
+                    CurrentViewModel = new ArtistHomeViewModel(user, this);
+                    break;
+                case UserRole.Organizer:
+                    CurrentViewModel = new OrganizerHomeViewModel(user, this);
+                    break;
+                case UserRole.Visitor:
+                    CurrentViewModel = new VisitorHomeViewModel(user, this);
+                    break;
+                default:
+                    throw new Exception("Unexpected user role");
+            }
+        }
+
+        internal void NavigateToLogin()
+        {
+            CurrentViewModel = new LoginViewModel(this);
+        }
     }
 }

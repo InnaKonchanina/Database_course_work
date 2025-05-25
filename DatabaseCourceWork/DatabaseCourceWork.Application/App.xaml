@@ -4,7 +4,29 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:DatabaseCourceWork.DesktopApplication"
     x:ClassModifier="internal"
+    DispatcherUnhandledException="Application_DispatcherUnhandledException"
     Startup="Application_Startup"
     StartupUri="MainWindow.xaml">
-    <Application.Resources />
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/RadioButtonStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/ButtonStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/CommonStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/TabControlStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/ContextMenuStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/CheckBoxStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/TextBlockStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/TextBoxStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/ComboBoxStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/DatePickerStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style BasedOn="{StaticResource ControlButtonStyle}" TargetType="{x:Type Button}" />
+            <Style TargetType="MenuItem">
+                <Setter Property="Header" Value="{Binding DisplayName}" />
+                <Setter Property="Command" Value="{Binding Command}" />
+                <Setter Property="ItemsSource" Value="{Binding MenuItems}" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

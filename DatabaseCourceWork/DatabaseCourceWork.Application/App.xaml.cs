@@ -1,5 +1,6 @@
-﻿using DatabaseCourceWork.DesktopApplication.Database;
+﻿using DatabaseCourceWork.DesktopApplication.Utils.DatabaseCourceWork.DesktopApplication.Services;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace DatabaseCourceWork.DesktopApplication
 {
@@ -12,6 +13,12 @@ namespace DatabaseCourceWork.DesktopApplication
         private void Application_Startup(object sender, StartupEventArgs e)
         {
 
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBoxProvider.Instance.ShowError($"Unexpected error. Message is {e.Exception.Message}.");
+            e.Handled = true;
         }
     }
 

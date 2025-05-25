@@ -1,0 +1,55 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/Colors.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="ControlButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="MinWidth" Value="98.55" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="27" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Background" Value="{StaticResource BlueColor}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="BorderBrush" Value="{StaticResource BlueColor}" />
+        <Setter Property="Foreground" Value="{StaticResource WhiteColor}" />
+        <Setter Property="FontFamily" Value="Noto Sans" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Padding" Value="5,2,5,2" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="2" />
+            </Style>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <Style
+        x:Key="RedButton"
+        BasedOn="{StaticResource ControlButtonStyle}"
+        TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="BorderBrush" Value="Red" />
+    </Style>
+
+    <Style
+        x:Key="RemovableButton"
+        BasedOn="{StaticResource ControlButtonStyle}"
+        TargetType="{x:Type Button}">
+        <Setter Property="Padding" Value="5,2,30,2" />
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0 0" EndPoint="1 0">
+                    <GradientStop Offset="0.8" Color="#4D9DE3" />
+                    <GradientStop Offset="1" Color="Red" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

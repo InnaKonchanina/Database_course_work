@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/Colors.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="DatePickerStyle" TargetType="{x:Type DatePicker}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Background" Value="{StaticResource BlueColor}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="BorderBrush" Value="{StaticResource BlueColor}" />
+        <Setter Property="Foreground" Value="{StaticResource BlackColor}" />
+        <Setter Property="FontFamily" Value="Noto Sans" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Margin" Value="5" />
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="2" />
+            </Style>
+            <Style TargetType="DatePickerTextBox">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Padding" Value="2" />
+            </Style>
+        </Style.Resources>
+    </Style>
+</ResourceDictionary>

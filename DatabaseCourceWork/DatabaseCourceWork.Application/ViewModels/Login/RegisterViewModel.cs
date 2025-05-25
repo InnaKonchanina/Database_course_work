@@ -3,16 +3,17 @@ using CommunityToolkit.Mvvm.Input;
 using DatabaseCourceWork.DesktopApplication.Database;
 using DatabaseCourceWork.DesktopApplication.Database.Models;
 using DatabaseCourceWork.DesktopApplication.Database.Models.Enums;
+using DatabaseCourceWork.DesktopApplication.Utils.DatabaseCourceWork.DesktopApplication.Services;
 using DatabaseCourceWork.DesktopApplication.ViewModels.Base;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows;
 
-namespace DatabaseCourceWork.DesktopApplication.ViewModels
+namespace DatabaseCourceWork.DesktopApplication.ViewModels.Login
 {
     internal partial class RegisterViewModel : BaseViewModel
     {
-        public RegisterViewModel()
+        public RegisterViewModel(MainWindowViewModel mainWindowViewModel) : base(mainWindowViewModel)
         {
             UserRoles = new ObservableCollection<UserRole> { UserRole.Visitor, UserRole.Artist, UserRole.Organizer };
             UserRole = UserRoles.First();
@@ -76,13 +77,13 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels
             {
                 if (Password != ConfirmPassword)
                 {
-                    MessageBox.Show("Passwords do not match.");
+                    MessageBoxProvider.Instance.ShowWarning("Passwords do not match.");
                     return;
                 }
 
                 if (DatabaseManager.Instance.CheckIfEmailIsUsed(Email))
                 {
-                    MessageBox.Show("Email is already registered.");
+                    MessageBoxProvider.Instance.ShowWarning("Email is already registered.");
                     return;
                 }
 
@@ -97,11 +98,11 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels
                 });
 
                 // Simulate success
-                MessageBox.Show("Registration successful!");
+                MessageBoxProvider.Instance.Show("Registration successful!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Registration failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxProvider.Instance.ShowError($"Registration failed: {ex.Message}", "Error");
             }
         }
 

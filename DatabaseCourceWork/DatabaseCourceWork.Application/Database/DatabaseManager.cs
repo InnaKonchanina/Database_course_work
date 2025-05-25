@@ -63,7 +63,12 @@ namespace DatabaseCourceWork.DesktopApplication.Database
 
         internal bool CheckIfEmailIsUsed(string email)
         {
-            return GetAllUsers().Any(u=> u.Email == email);
+            return GetAllUsers().Any(u => u.Email == email);
+        }
+
+        internal User? TryLogin(string email, string password)
+        {
+            return GetAllUsers().FirstOrDefault(u => u.Email == email && u.PasswordHash == password);
         }
     }
 }

@@ -4,6 +4,13 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Base
 {
     internal class BaseViewModel : ObservableValidator
     {
+        protected readonly MainWindowViewModel _mainWindowViewModel;
+
+        protected BaseViewModel(MainWindowViewModel mainWindowViewModel)
+        {
+            this._mainWindowViewModel = mainWindowViewModel;
+        }
+
         public void ValidateAll()
         {
             ValidateAllProperties();

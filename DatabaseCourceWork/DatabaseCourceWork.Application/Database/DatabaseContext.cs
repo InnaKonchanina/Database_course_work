@@ -8,8 +8,8 @@ namespace DatabaseCourceWork.DesktopApplication.Database
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Location> Locations { get; set; } = null!;
         public DbSet<CulturalEvent> CulturalEvents { get; set; } = null!;
-        public DbSet<ArtistToCulturalEventMap> ArtistToCulturalEventMaps { get; set; } = null!;
-        public DbSet<VisitorToCulturalEventMap> VisitorToCulturalEventMaps { get; set; } = null!;
+        public DbSet<ArtistToCulturalEventMap> ArtistToCulturalEventMap { get; set; } = null!;
+        public DbSet<VisitorToCulturalEventMap> VisitorToCulturalEventMap { get; set; } = null!;
         public DbSet<Feedback> Feedbacks { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)

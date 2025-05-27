@@ -32,4 +32,80 @@
         </Style.Resources>
     </Style>
 
+    <Style x:Key="LeftVerticalTabControl" TargetType="TabControl">
+        <Setter Property="TabStripPlacement" Value="Left" />
+        <Setter Property="Background" Value="{StaticResource BlueColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabControl">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <!--  Tab panel on left  -->
+                        <TabPanel
+                            Grid.Column="0"
+                            Margin="0"
+                            Background="{TemplateBinding Background}"
+                            IsItemsHost="True"
+                            KeyboardNavigation.TabIndex="1" />
+
+                        <!--  Content presenter on right  -->
+                        <ContentPresenter
+                            Grid.Column="1"
+                            Margin="10"
+                            ContentSource="SelectedContent"
+                            KeyboardNavigation.TabIndex="2" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LeftVerticalTabItem" TargetType="TabItem">
+        <Setter Property="Foreground" Value="{StaticResource WhiteColor}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Height" Value="48" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Padding" Value="20,0,0,0" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontFamily" Value="Noto Sans" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Border
+                        x:Name="Bd"
+                        Margin="10,5,5,5"
+                        Padding="10,0,0,0"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="0"
+                        SnapsToDevicePixels="true">
+                        <ContentPresenter
+                            x:Name="Content"
+                            VerticalAlignment="Center"
+                            ContentSource="Header" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource WhiteColor}" />
+                            <Setter Property="Foreground" Value="{StaticResource BlueColor}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource WhiteColor}" />
+                            <Setter Property="Foreground" Value="{StaticResource BlueColor}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{StaticResource GrayColor}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
 </ResourceDictionary>

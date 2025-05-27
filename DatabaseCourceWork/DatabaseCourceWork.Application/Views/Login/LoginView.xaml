@@ -58,7 +58,8 @@
             Grid.ColumnSpan="2"
             HorizontalAlignment="Right"
             Command="{Binding LoginCommand}"
-            Content="Login" />
+            Content="Login"
+            IsDefault="True" />
 
         <!--  Register Button  -->
         <Button

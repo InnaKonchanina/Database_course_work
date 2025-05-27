@@ -1,6 +1,7 @@
 ﻿using DatabaseCourceWork.DesktopApplication.Database.Models.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,12 +20,16 @@ namespace DatabaseCourceWork.DesktopApplication.Database.Models
         public Location Location { get; set; } = null!;
 
         public int OrganizerId { get; set; }
+
         public User Organizer { get; set; } = null!;
 
         public string Status { get; set; } = "scheduled";
 
-        public ICollection<ArtistToCulturalEventMap> Artists { get; set; } = new List<ArtistToCulturalEventMap>();
-        public ICollection<VisitorToCulturalEventMap> Visitors { get; set; } = new List<VisitorToCulturalEventMap>();
-        public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+        [NotMapped]
+        public List<User> Artists { get; set; } = new List<User>();
+        [NotMapped]
+        public List<User> Visitors { get; set; } = new List<User>();
+        [NotMapped]
+        public List<Feedback> Feedbacks { get; set; } = new List<Feedback>();
     }
 }

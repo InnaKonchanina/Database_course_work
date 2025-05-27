@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DatabaseCourceWork.DesktopApplication.Database.Models;
+using DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewModels;
 
 namespace DatabaseCourceWork.DesktopApplication.ViewModels.Base
 {
@@ -8,13 +9,13 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Base
     {
         protected BaseHomeViewModel(User user, MainWindowViewModel mainWindowViewModel) : base(mainWindowViewModel)
         {
-            this.user = user;
+            this.user = new UserViewModel(user);
         }
 
-        public BaseViewModel RoleSpecificContent => this;
-
         [ObservableProperty]
-        private User user;
+        private UserViewModel user;
+
+        public BaseViewModel RoleSpecificContent => this;
 
         [RelayCommand]
         private void Logout()

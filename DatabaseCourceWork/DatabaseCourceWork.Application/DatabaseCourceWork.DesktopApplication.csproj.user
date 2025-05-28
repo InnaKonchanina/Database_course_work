@@ -22,6 +22,9 @@
     <Compile Update="Views\Login\RegisterWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\ReusedControls\EventsCardsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\VisitorViews\VisitorHomeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -43,6 +46,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Login\RegisterWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ReusedControls\EventsCardsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Styles\ButtonStyle.xaml">

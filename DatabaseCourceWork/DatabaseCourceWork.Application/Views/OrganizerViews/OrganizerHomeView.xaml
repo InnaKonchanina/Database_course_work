@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:DatabaseCourceWork.DesktopApplication.Views.OrganizerViews"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:reusedcontrols="clr-namespace:DatabaseCourceWork.DesktopApplication.Views.ReusedControls"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -182,57 +183,11 @@
             </TabItem>
 
             <TabItem Header="My Events" Style="{StaticResource LeftVerticalTabItem}">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Style="{StaticResource TabItemTopText}" Text="Cultural Events:" />
-
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox
-                                Content="Upcoming"
-                                IsChecked="{Binding IsMyEventsUpcomingVisible}"
-                                Style="{StaticResource CheckBoxStyle}" />
-                            <CheckBox
-                                Content="Old"
-                                IsChecked="{Binding IsMyEventsOldVisible}"
-                                Style="{StaticResource CheckBoxStyle}" />
-                        </StackPanel>
-
-                        <ItemsControl ItemTemplate="{StaticResource EventCardDataTemplate}" ItemsSource="{Binding MyEvents}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </StackPanel>
-                </ScrollViewer>
+                <reusedcontrols:EventsCardsView DataContext="{Binding MyEvents}" />
             </TabItem>
 
             <TabItem Header="All Events" Style="{StaticResource LeftVerticalTabItem}">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Style="{StaticResource TabItemTopText}" Text="Cultural Events:" />
-
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox
-                                Content="Upcoming"
-                                IsChecked="{Binding IsAllEventsUpcomingVisible}"
-                                Style="{StaticResource CheckBoxStyle}" />
-                            <CheckBox
-                                Content="Old"
-                                IsChecked="{Binding IsAllEventsOldVisible}"
-                                Style="{StaticResource CheckBoxStyle}" />
-                        </StackPanel>
-
-                        <ItemsControl ItemTemplate="{StaticResource EventCardDataTemplate}" ItemsSource="{Binding AllEvents}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </StackPanel>
-                </ScrollViewer>
+                <reusedcontrols:EventsCardsView DataContext="{Binding AllEvents}" />
             </TabItem>
 
             <TabItem Header="Artists" Style="{StaticResource LeftVerticalTabItem}">

@@ -3,6 +3,7 @@ using DatabaseCourceWork.DesktopApplication.Database;
 using DatabaseCourceWork.DesktopApplication.ViewModels.Base;
 using DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewModels;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace DatabaseCourceWork.DesktopApplication.ViewModels.Reused
 {
@@ -10,11 +11,18 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Reused
     {
         private readonly Action _refreshOther;
 
-        protected EventsCardsViewModel(MainWindowViewModel mainWindowViewModel, Action refreshOther) : base(mainWindowViewModel)
+        public EventsCardsViewModel(string title, MainWindowViewModel mainWindowViewModel, Action refreshOther) : base(mainWindowViewModel)
         {
+            Events = new ObservableCollection<CulturalEventViewModel>();
+            Title = title;
             _refreshOther = refreshOther;
+            IsOldVisible = true;
+            IsUpcomingVisible = true;
+            DisplayVisitors = Visibility.Visible;
         }
 
+        [ObservableProperty]
+        private string title;
         public ObservableCollection<CulturalEventViewModel> Events { get; }
 
         [ObservableProperty]
@@ -22,12 +30,25 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Reused
         [ObservableProperty]
         private bool isOldVisible;
 
-        private void RefreshEvents()
+        [ObservableProperty]
+        private Visibility displayVisitors;
+
+        partial void OnIsOldVisibleChanged(bool value)
+        {
+            Refresh(true);
+        }
+
+        partial void OnIsUpcomingVisibleChanged(bool value)
+        {
+            Refresh(true);
+        }
+
+        public void Refresh(bool refreshOther = false)
         {
             // Reload events or add the newly created event to collections
             Events.Clear();
-            IEnumerable<CulturalEventViewModel> allEvents = DatabaseManager.Instance.GetAllEvents()
-                            .Select(evm => new CulturalEventViewModel(evm)).OrderBy(e => e.StartDateTime);
+            IEnumerable<CulturalEventViewModel> allEvents = DatabaseManager.Instance.GetAllEvents().
+                Select(evm => new CulturalEventViewModel(evm)).OrderBy(e => e.StartDateTime);
 
             foreach (var ev in allEvents)
             {
@@ -42,7 +63,8 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Reused
                 }
             }
 
-            _refreshOther();
+            if (refreshOther)
+                _refreshOther();
         }
     }
 }

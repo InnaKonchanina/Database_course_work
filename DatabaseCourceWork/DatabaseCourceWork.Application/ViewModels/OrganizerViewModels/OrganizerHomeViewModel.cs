@@ -16,106 +16,48 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.OrganizerViewModels
             Locations = new ObservableCollection<LocationViewModel>();
             Artists = new ObservableCollection<UserViewModel>(
                DatabaseManager.Instance.GetAllArtist().Select(l => new UserViewModel(l)));
-            AllEvents = new ObservableCollection<CulturalEventViewModel>();
-            MyEvents = new ObservableCollection<CulturalEventViewModel>();
-            RefreshEvents();
+            AllEvents = new EventsCardsViewModel("All Events", mainWindowViewModel, () =>
+            {
+                MyEvents?.Refresh();
+                RefreshLocations();
+            });
+            MyEvents = new EventsCardsViewModel("All Events", mainWindowViewModel, () =>
+            {
+                AllEvents?.Refresh();
+                RefreshLocations();
+            });
+
+            MyEvents.Refresh();
+            AllEvents.Refresh();
 
             NewEvent = new NewEventViewModel(mainWindowViewModel, User, Locations,
                 new ObservableCollection<SelectableUserViewModel>(Artists.Select(a => new SelectableUserViewModel(a))));
             NewEvent.SaveCompleted += OnNewEventSaved;
-
-            IsAllEventsOldVisible = true;
-            IsAllEventsUpcomingVisible = true;
-
-            IsMyEventsOldVisible = true;
-            IsMyEventsUpcomingVisible = true;
         }
 
         public ObservableCollection<LocationViewModel> Locations { get; }
 
         public ObservableCollection<UserViewModel> Artists { get; }
 
-        public ObservableCollection<CulturalEventViewModel> AllEvents { get; }
+        public EventsCardsViewModel AllEvents { get; }
 
-        public ObservableCollection<CulturalEventViewModel> MyEvents { get; }
-
-        public EventsCardsViewModel MyEventsCards { get; }
-
-        [ObservableProperty]
-        private bool isMyEventsUpcomingVisible;
-        [ObservableProperty]
-        private bool isMyEventsOldVisible;
-
-        [ObservableProperty]
-        private bool isAllEventsUpcomingVisible;
-        [ObservableProperty]
-        private bool isAllEventsOldVisible;
+        public EventsCardsViewModel MyEvents { get; }
 
         [ObservableProperty]
         private NewEventViewModel newEvent;
 
         private void OnNewEventSaved(object? sender, EventArgs e)
         {
-            this.RefreshEvents();
+            MyEvents.Refresh();
+            AllEvents.Refresh();
         }
 
-        partial void OnIsAllEventsOldVisibleChanged(bool value)
-        {
-            RefreshEvents(); ;
-        }
-
-        partial void OnIsAllEventsUpcomingVisibleChanged(bool value)
-        {
-            RefreshEvents();
-        }
-
-        partial void OnIsMyEventsOldVisibleChanged(bool value)
-        {
-            RefreshEvents();
-        }
-
-        partial void OnIsMyEventsUpcomingVisibleChanged(bool value)
-        {
-            RefreshEvents();
-        }
-
-        private void RefreshEvents()
+        private void RefreshLocations()
         {
             Locations.Clear();
             foreach (var item in DatabaseManager.Instance.GetAllLocations().Select(l => new LocationViewModel(l)))
             {
                 Locations.Add(item);
-            } ;
-            // Reload events or add the newly created event to collections
-            AllEvents.Clear();
-            IEnumerable<CulturalEventViewModel> allEvents = DatabaseManager.Instance.GetAllEvents()
-                            .Select(evm => new CulturalEventViewModel(evm)).OrderBy(e => e.StartDateTime);
-
-            foreach (var ev in allEvents)
-            {
-                if (IsAllEventsUpcomingVisible && ev.StartDateTime >= DateTime.Now)
-                {
-                    AllEvents.Add(ev);
-                }
-
-                if (IsAllEventsOldVisible && ev.StartDateTime < DateTime.Now)
-                {
-                    AllEvents.Add(ev);
-                }
-            }
-
-            MyEvents.Clear();
-            foreach (var ev in allEvents.Where(ev => ev.OrganizerId == User.Id))
-            {
-                if (IsMyEventsUpcomingVisible && ev.StartDateTime >= DateTime.Now)
-                {
-                    MyEvents.Add(ev);
-                }
-
-                if (IsMyEventsOldVisible && ev.StartDateTime < DateTime.Now)
-                {
-                    MyEvents.Add(ev);
-                }
             }
         }
     }

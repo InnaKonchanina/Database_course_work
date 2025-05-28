@@ -25,216 +25,259 @@
                 BorderThickness="1"
                 CornerRadius="5">
 
-                <StackPanel Orientation="Vertical">
-                    <!--  Title  -->
-                    <StackPanel
-                        Margin="0,0,0,4"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                        <!--  Colored bullet with trigger-based fill  -->
-                        <Ellipse
-                            Width="10"
-                            Height="10"
-                            Margin="0,0,6,0">
-                            <Ellipse.Style>
-                                <Style TargetType="Ellipse">
-                                    <Setter Property="Fill" Value="LightGray" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsUpcoming}" Value="True">
-                                            <Setter Property="Fill" Value="Green" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Ellipse.Style>
-                        </Ellipse>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
 
+                    <StackPanel Orientation="Vertical">
                         <!--  Title  -->
+                        <StackPanel
+                            Margin="0,0,0,4"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <!--  Colored bullet with trigger-based fill  -->
+                            <Ellipse
+                                Width="10"
+                                Height="10"
+                                Margin="0,0,6,0">
+                                <Ellipse.Style>
+                                    <Style TargetType="Ellipse">
+                                        <Setter Property="Fill" Value="LightGray" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsUpcoming}" Value="True">
+                                                <Setter Property="Fill" Value="Green" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Ellipse.Style>
+                            </Ellipse>
+
+                            <!--  Title  -->
+                            <TextBlock
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Text="{Binding Title}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <!--  Date and Time  -->
+                        <TextBlock FontWeight="SemiBold" Text="Start:" />
                         <TextBlock
-                            FontSize="16"
-                            FontWeight="Bold"
-                            Text="{Binding Title}"
+                            FontSize="12"
+                            Foreground="Gray"
+                            Text="{Binding StartDateTime, StringFormat={}{0:dd MMM yyyy HH:mm}}" />
+                        <TextBlock
+                            Margin="0,5,0,0"
+                            FontWeight="SemiBold"
+                            Text="End:" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="Gray"
+                            Text="{Binding EndDateTime, StringFormat={}{0:dd MMM yyyy HH:mm}}" />
+
+                        <!--  Location  -->
+                        <TextBlock
+                            Margin="0,5,0,0"
+                            FontWeight="SemiBold"
+                            Text="Location:" />
+                        <TextBlock FontStyle="Italic" Text="{Binding Location.Name}" />
+
+                        <!--  Organizer  -->
+                        <TextBlock
+                            Margin="0,5,0,0"
+                            FontWeight="SemiBold"
+                            Text="Organizer:" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#444"
+                            Text="{Binding Organizer.Name}" />
+                        <!--  Price  -->
+                        <TextBlock
+                            Margin="0,5,0,0"
+                            FontWeight="SemiBold"
+                            Text="Price:" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="DarkRed"
+                            Text="{Binding Price, StringFormat=₴{0}}" />
+                        <!--  Description  -->
+                        <TextBlock
+                            Margin="0,5,0,0"
+                            FontWeight="SemiBold"
+                            Text="Description:" />
+                        <TextBlock
+                            FontSize="12"
+                            Text="{Binding Description}"
                             TextWrapping="Wrap" />
-                    </StackPanel>
 
-                    <!--  Date and Time  -->
-                    <TextBlock FontWeight="SemiBold" Text="Start:" />
-                    <TextBlock
-                        FontSize="12"
-                        Foreground="Gray"
-                        Text="{Binding StartDateTime, StringFormat={}{0:dd MMM yyyy HH:mm}}" />
-                    <TextBlock
-                        Margin="0,5,0,0"
-                        FontWeight="SemiBold"
-                        Text="End:" />
-                    <TextBlock
-                        FontSize="12"
-                        Foreground="Gray"
-                        Text="{Binding EndDateTime, StringFormat={}{0:dd MMM yyyy HH:mm}}" />
-
-                    <!--  Location  -->
-                    <TextBlock
-                        Margin="0,5,0,0"
-                        FontWeight="SemiBold"
-                        Text="Location:" />
-                    <TextBlock FontStyle="Italic" Text="{Binding Location.Name}" />
-
-                    <!--  Organizer  -->
-                    <TextBlock
-                        Margin="0,5,0,0"
-                        FontWeight="SemiBold"
-                        Text="Organizer:" />
-                    <TextBlock
-                        FontSize="12"
-                        Foreground="#444"
-                        Text="{Binding Organizer.Name}" />
-                    <!--  Price  -->
-                    <TextBlock
-                        Margin="0,5,0,0"
-                        FontWeight="SemiBold"
-                        Text="Price:" />
-                    <TextBlock
-                        FontSize="12"
-                        Foreground="DarkRed"
-                        Text="{Binding Price, StringFormat=₴{0}}" />
-                    <!--  Description  -->
-                    <TextBlock
-                        Margin="0,5,0,0"
-                        FontWeight="SemiBold"
-                        Text="Description:" />
-                    <TextBlock
-                        FontSize="12"
-                        Text="{Binding Description}"
-                        TextWrapping="Wrap" />
-
-                    <!--  Artists Section  -->
-                    <TextBlock
-                        Margin="0,10,0,0"
-                        FontWeight="SemiBold"
-                        Text="Artists:" />
-                    <ItemsControl ItemsSource="{Binding ArtistsPreview}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border
-                                    Margin="2"
-                                    Padding="4"
-                                    Background="#E0F0FF"
-                                    CornerRadius="4">
-                                    <TextBlock
-                                        FontSize="12"
-                                        Foreground="DarkBlue"
-                                        Text="{Binding Name}" />
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    <Button
-                        Margin="0,5,0,0"
-                        Padding="4,2"
-                        HorizontalAlignment="Left"
-                        Command="{Binding ToggleArtistsCommand}"
-                        Content="{Binding AreArtistsExpanded, Converter={StaticResource BoolToTextConverter}, ConverterParameter='Show more|Show less'}"
-                        FontSize="12" />
-
-                    <!--  Visitors Section  -->
-                    <TextBlock Margin="0,10,0,0" Visibility="{Binding DataContext.DisplayVisitors, RelativeSource={RelativeSource AncestorType=UserControl}}">
-                        <Run FontWeight="SemiBold" Text="Visitors: " />
-                        <Run
-                            FontWeight="Bold"
-                            Foreground="DarkGreen"
-                            Text="{Binding VisitorsCount, Mode=OneTime}" />
-                    </TextBlock>
-                    <ItemsControl ItemsSource="{Binding VisitorsPreview}" Visibility="{Binding DataContext.DisplayVisitors, RelativeSource={RelativeSource AncestorType=UserControl}}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border
-                                    Margin="2"
-                                    Padding="4"
-                                    Background="#E0FFE0"
-                                    CornerRadius="4">
-                                    <TextBlock
-                                        FontSize="12"
-                                        Foreground="DarkGreen"
-                                        Text="{Binding Name}" />
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                    <Button
-                        Margin="0,5,0,0"
-                        Padding="4,2"
-                        HorizontalAlignment="Left"
-                        Command="{Binding ToggleVisitorsCommand}"
-                        Content="{Binding AreVisitorsExpanded, Converter={StaticResource BoolToTextConverter}, ConverterParameter='Show more|Show less'}"
-                        FontSize="12"
-                        Visibility="{Binding DataContext.DisplayVisitors, RelativeSource={RelativeSource AncestorType=UserControl}}" />
-
-                    <!--  Feedbacks Section  -->
-                    <TextBlock
-                        Margin="0,10,0,0"
-                        FontWeight="SemiBold"
-                        Text="Feedbacks:" />
-                    <ItemsControl ItemsSource="{Binding FeedbacksPreview}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border
-                                    Margin="2"
-                                    Padding="6"
-                                    Background="#FFF0E0"
-                                    CornerRadius="4">
-                                    <StackPanel Width="280" Orientation="Vertical">
-                                        <StackPanel
-                                            Margin="0,0,0,4"
-                                            VerticalAlignment="Center"
-                                            Orientation="Horizontal">
-                                            <TextBlock
-                                                FontSize="12"
-                                                FontWeight="Bold"
-                                                Foreground="#AA5500"
-                                                Text="{Binding User.Name}" />
-                                            <TextBlock
-                                                Margin="6,0,0,0"
-                                                FontSize="12"
-                                                Foreground="#AA5500"
-                                                Text="{Binding Rating, StringFormat=Rating: {0}/5}" />
-                                        </StackPanel>
+                        <!--  Artists Section  -->
+                        <TextBlock
+                            Margin="0,10,0,0"
+                            FontWeight="SemiBold"
+                            Text="Artists:" />
+                        <ItemsControl ItemsSource="{Binding ArtistsPreview}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Margin="2"
+                                        Padding="4"
+                                        Background="#E0F0FF"
+                                        CornerRadius="4">
                                         <TextBlock
                                             FontSize="12"
-                                            Text="{Binding Comment}"
-                                            TextWrapping="Wrap" />
-                                        <TextBlock
-                                            HorizontalAlignment="Right"
-                                            FontSize="10"
-                                            Foreground="Gray"
-                                            Text="{Binding Date, StringFormat={}{0:dd MMM yyyy}}" />
-                                    </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                                            Foreground="DarkBlue"
+                                            Text="{Binding Name}" />
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button
+                            Margin="0,5,0,0"
+                            Padding="4,2"
+                            HorizontalAlignment="Left"
+                            Command="{Binding ToggleArtistsCommand}"
+                            Content="{Binding AreArtistsExpanded, Converter={StaticResource BoolToTextConverter}, ConverterParameter='Show more|Show less'}"
+                            FontSize="12" />
 
-                    <Button
-                        Margin="0,5,0,0"
-                        Padding="4,2"
-                        HorizontalAlignment="Left"
-                        Command="{Binding ToggleFeedbacksCommand}"
-                        Content="{Binding AreFeedbacksExpanded, Converter={StaticResource BoolToTextConverter}, ConverterParameter='Show more|Show less'}"
-                        FontSize="12" />
-                </StackPanel>
+                        <!--  Visitors Section  -->
+                        <TextBlock Margin="0,10,0,0">
+                            <Run FontWeight="SemiBold" Text="Visitors: " />
+                            <Run
+                                FontWeight="Bold"
+                                Foreground="DarkGreen"
+                                Text="{Binding VisitorsCount, Mode=OneTime}" />
+                        </TextBlock>
+                        <ItemsControl ItemsSource="{Binding VisitorsPreview}" Visibility="{Binding DataContext.DisplayVisitors, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Margin="2"
+                                        Padding="4"
+                                        Background="#E0FFE0"
+                                        CornerRadius="4">
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="DarkGreen"
+                                            Text="{Binding Name}" />
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button
+                            Margin="0,5,0,0"
+                            Padding="4,2"
+                            HorizontalAlignment="Left"
+                            Command="{Binding ToggleVisitorsCommand}"
+                            Content="{Binding AreVisitorsExpanded, Converter={StaticResource BoolToTextConverter}, ConverterParameter='Show more|Show less'}"
+                            FontSize="12"
+                            Visibility="{Binding DataContext.DisplayVisitors, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+
+                        <!--  Feedbacks Section  -->
+                        <TextBlock
+                            Margin="0,10,0,0"
+                            FontWeight="SemiBold"
+                            Text="Feedbacks:" />
+                        <ItemsControl ItemsSource="{Binding FeedbacksPreview}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Margin="2"
+                                        Padding="6"
+                                        Background="#FFF0E0"
+                                        CornerRadius="4">
+                                        <StackPanel Width="280" Orientation="Vertical">
+                                            <StackPanel
+                                                Margin="0,0,0,4"
+                                                VerticalAlignment="Center"
+                                                Orientation="Horizontal">
+                                                <TextBlock
+                                                    FontSize="12"
+                                                    FontWeight="Bold"
+                                                    Foreground="#AA5500"
+                                                    Text="{Binding User.Name}" />
+                                                <TextBlock
+                                                    Margin="6,0,0,0"
+                                                    FontSize="12"
+                                                    Foreground="#AA5500"
+                                                    Text="{Binding Rating, StringFormat=Rating: {0}/5}" />
+                                            </StackPanel>
+                                            <TextBlock
+                                                FontSize="12"
+                                                Text="{Binding Comment}"
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                HorizontalAlignment="Right"
+                                                FontSize="10"
+                                                Foreground="Gray"
+                                                Text="{Binding Date, StringFormat={}{0:dd MMM yyyy}}" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <Button
+                            Margin="0,5,0,0"
+                            Padding="4,2"
+                            HorizontalAlignment="Left"
+                            Command="{Binding ToggleFeedbacksCommand}"
+                            Content="{Binding AreFeedbacksExpanded, Converter={StaticResource BoolToTextConverter}, ConverterParameter='Show more|Show less'}"
+                            FontSize="12" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="1"
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Orientation="Vertical">
+
+                        <Button
+                            Width="120"
+                            Padding="6,4"
+                            Background="#FF007ACC"
+                            Command="{Binding LeaveFeedbackCommand}"
+                            Content="Leave Feedback"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Visibility="{Binding LeaveFeedbackButtonVisibility}" />
+
+                        <Button
+                            Width="120"
+                            Padding="6,4"
+                            Background="#FF28A745"
+                            Command="{Binding JoinEventCommand}"
+                            Content="Join Event"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Visibility="{Binding JoinEventButtonVisibility}" />
+                        <TextBlock
+                            Margin="10,8,0,0"
+                            FontSize="12"
+                            FontWeight="SemiBold"
+                            Foreground="Green"
+                            Text="You have successfully joined this event!"
+                            Visibility="{Binding IsEventJoined, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    </StackPanel>
+
+                </Grid>
             </Border>
         </DataTemplate>
     </UserControl.Resources>

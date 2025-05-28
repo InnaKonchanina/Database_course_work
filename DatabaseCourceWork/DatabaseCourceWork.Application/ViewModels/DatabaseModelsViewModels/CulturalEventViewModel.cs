@@ -1,17 +1,33 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DatabaseCourceWork.DesktopApplication.Database;
 using DatabaseCourceWork.DesktopApplication.Database.Models;
+using DatabaseCourceWork.DesktopApplication.Utils.DatabaseCourceWork.DesktopApplication.Services;
+using DatabaseCourceWork.DesktopApplication.ViewModels.Reused;
+using DatabaseCourceWork.DesktopApplication.Views.ReusedControls;
+using System.Windows;
 
 namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewModels
 {
     internal partial class CulturalEventViewModel : ObservableObject
     {
+        private readonly UserViewModel _activeUser;
+        private readonly Action _refresh;
+
         public CulturalEventViewModel()
         {
 
         }
-        public CulturalEventViewModel(CulturalEvent culturalEvent)
+
+        public CulturalEventViewModel(
+            UserViewModel activeUser,
+            CulturalEvent culturalEvent,
+            Action refresh,
+            bool allowLeaveFeedback = false,
+            bool allowJoinEvent = false)
         {
+            _activeUser = activeUser;
+            _refresh = refresh;
             Id = culturalEvent.Id;
             Title = culturalEvent.Title;
             Description = culturalEvent.Description;
@@ -35,10 +51,27 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
             Visitors = culturalEvent.Visitors
                 .Select(v => new UserViewModel(v))
                 .ToList();
+
+            if (IsUpcoming && allowJoinEvent && Visitors.All(v => v.Id != _activeUser.Id))
+            {
+                JoinEventButtonVisibility = Visibility.Visible;
+            }
+
+            if (!IsUpcoming && allowLeaveFeedback && Visitors.Any(v => v.Id == _activeUser.Id))
+            {
+                LeaveFeedbackButtonVisibility = Visibility.Visible;
+            }
         }
+
+        public Visibility LeaveFeedbackButtonVisibility { get; } = Visibility.Collapsed;
+
+        public Visibility JoinEventButtonVisibility { get; } = Visibility.Collapsed;
 
         public bool IsUpcoming => EndDateTime >= DateTime.Now;
         public int VisitorsCount => Visitors.Count;
+
+        public bool IsEventJoined => Visitors.Any(v => _activeUser.Id == v.Id);
+
         [ObservableProperty] private int id;
         [ObservableProperty] private string title;
         [ObservableProperty] private string? description;
@@ -71,8 +104,6 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
         public List<UserViewModel> VisitorsPreview =>
             AreVisitorsExpanded ? Visitors : Visitors.Take(PreviewCount).ToList();
 
-
-
         public List<FeedbackViewModel> FeedbacksPreview =>
             AreFeedbacksExpanded ? Feedbacks : Feedbacks.Take(PreviewCount).ToList();
 
@@ -93,6 +124,26 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
             AreVisitorsExpanded = !AreVisitorsExpanded;
             OnPropertyChanged(nameof(VisitorsPreview));
         });
+
+        [RelayCommand]
+        private void LeaveFeedback()
+        {
+            if (new LeaveFeedbackDialog()
+            {
+                DataContext = new LeaveFeedbackViewModel(_activeUser, this)
+            }.ShowDialog() == true)
+            {
+                _refresh();
+            }
+        }
+
+        [RelayCommand]
+        private void JoinEvent()
+        {
+            DatabaseManager.Instance.JoinEvent(_activeUser.Id, Id);
+            _refresh();
+            MessageBoxProvider.Instance.Show($"🎉 You’ve successfully joined the event! We’ve saved your spot, {_activeUser.Name}. Don’t forget to bring your good vibes! 😊");
+        }
 
         public CulturalEvent ToModel()
         {

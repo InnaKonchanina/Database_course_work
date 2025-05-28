@@ -4,7 +4,7 @@
     xmlns:converters="clr-namespace:DatabaseCourceWork.DesktopApplication.Converters">
     <ResourceDictionary.MergedDictionaries />
     <converters:BoolToTextConverter x:Key="BoolToTextConverter" />
-    
+    <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     <Style
         x:Key="TabItemTopText"
         BasedOn="{StaticResource TitleTextBlock}"
@@ -12,5 +12,5 @@
         <Setter Property="Foreground" Value="{StaticResource BlueColor}" />
         <Setter Property="FontSize" Value="20" />
     </Style>
-   
+
 </ResourceDictionary>

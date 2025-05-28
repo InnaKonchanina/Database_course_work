@@ -87,6 +87,11 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Login
                     return;
                 }
 
+                ValidateAll();
+                if (HasErrors)
+                {
+                    return;
+                }
                 DatabaseManager.Instance.RegisterNewUser(new User
                 {
                     Email = Email,

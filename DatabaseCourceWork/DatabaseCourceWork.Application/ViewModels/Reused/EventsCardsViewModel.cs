@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using DatabaseCourceWork.DesktopApplication.Database;
+using DatabaseCourceWork.DesktopApplication.Database.Models;
 using DatabaseCourceWork.DesktopApplication.ViewModels.Base;
 using DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewModels;
 using System.Collections.ObjectModel;
@@ -9,10 +10,14 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Reused
 {
     internal partial class EventsCardsViewModel : BaseViewModel
     {
+        private readonly Func<CulturalEvent, bool> _eventFilter;
         private readonly Action _refreshOther;
 
-        public EventsCardsViewModel(string title, MainWindowViewModel mainWindowViewModel, Action refreshOther) : base(mainWindowViewModel)
+        public EventsCardsViewModel(Func<CulturalEvent, bool> eventFilter, UserViewModel activeUser, string title,
+            MainWindowViewModel mainWindowViewModel, Action refreshOther) : base(mainWindowViewModel)
         {
+            _eventFilter = eventFilter;
+            ActiveUser = activeUser;
             Events = new ObservableCollection<CulturalEventViewModel>();
             Title = title;
             _refreshOther = refreshOther;
@@ -22,8 +27,15 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Reused
         }
 
         [ObservableProperty]
+        private UserViewModel activeUser;
+
+        [ObservableProperty]
         private string title;
         public ObservableCollection<CulturalEventViewModel> Events { get; }
+
+        public bool AllowLeaveFeedback { get; init; }
+
+        public bool AllowJoinEvent { get; init; }
 
         [ObservableProperty]
         private bool isUpcomingVisible;
@@ -48,7 +60,8 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Reused
             // Reload events or add the newly created event to collections
             Events.Clear();
             IEnumerable<CulturalEventViewModel> allEvents = DatabaseManager.Instance.GetAllEvents().
-                Select(evm => new CulturalEventViewModel(evm)).OrderBy(e => e.StartDateTime);
+                Where(e=> _eventFilter(e)).
+                Select(evm => new CulturalEventViewModel(ActiveUser, evm, () => Refresh(true), AllowLeaveFeedback, AllowJoinEvent)).OrderBy(e => e.StartDateTime);
 
             foreach (var ev in allEvents)
             {

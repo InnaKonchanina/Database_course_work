@@ -45,13 +45,6 @@ namespace DatabaseCourceWork.DesktopApplication.Database
 
             }
             return events;
-            var result = new List<CulturalEvent>();
-            for (var i = 0; i < 10; i++)
-            {
-                result.AddRange(events);
-            }
-
-            return result;
         }
 
         public CulturalEvent? GetEventById(int eventId)
@@ -141,6 +134,22 @@ namespace DatabaseCourceWork.DesktopApplication.Database
         internal int GetUsingCountForLocation(int id)
         {
             return GetAllEvents().Count(e => e.LocationId == id);
+        }
+
+        internal void JoinEvent(int userId, int eventId)
+        {
+            _context.VisitorToCulturalEventMap.Add(new VisitorToCulturalEventMap
+            {
+                UserId = userId,
+                CulturalEventId = eventId
+            });
+            _context.SaveChanges();
+        }
+
+        internal void LeaveFeedback(Feedback feedback)
+        {
+            _context.Feedbacks.Add(feedback);
+            _context.SaveChanges();
         }
     }
 }

@@ -9,13 +9,15 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
         {
             Id = feedback.Id;
             CulturalEventId = feedback.CulturalEventId;
-            if (loadEvent) 
-            {
-                CulturalEvent = new CulturalEventViewModel(feedback.CulturalEvent);
-            }
-            
             UserId = feedback.UserId;
             User = new UserViewModel(feedback.User);
+
+            if (loadEvent) 
+            {
+                CulturalEvent = new CulturalEventViewModel(User, feedback.CulturalEvent, () => { });
+            }
+            
+            
             Rating = feedback.Rating;
             Comment = feedback.Comment;
         }

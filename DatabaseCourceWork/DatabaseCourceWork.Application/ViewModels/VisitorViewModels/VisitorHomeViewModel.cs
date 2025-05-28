@@ -1,6 +1,7 @@
 ﻿using DatabaseCourceWork.DesktopApplication.Database.Models;
 using DatabaseCourceWork.DesktopApplication.ViewModels.Base;
 using DatabaseCourceWork.DesktopApplication.ViewModels.Reused;
+using System.Windows;
 
 namespace DatabaseCourceWork.DesktopApplication.ViewModels.VisitorViewModels
 {
@@ -10,20 +11,24 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.VisitorViewModels
         public VisitorHomeViewModel(User user, MainWindowViewModel mainWindowViewModel)
             : base(user, mainWindowViewModel)
         {
-            AllEvents = new EventsCardsViewModel("All Events", mainWindowViewModel, () =>
+            AllEvents = new EventsCardsViewModel(e => true, User, "All Events", mainWindowViewModel, () =>
             {
                 MyEvents?.Refresh();
             })
             {
-                DisplayVisitors = System.Windows.Visibility.Collapsed
+                DisplayVisitors = Visibility.Collapsed,
+                AllowJoinEvent = true,
+                AllowLeaveFeedback = true,
             };
 
-            MyEvents = new EventsCardsViewModel("All Events", mainWindowViewModel, () =>
+            MyEvents = new EventsCardsViewModel(e => e.Visitors.Any(v => v.Id == User.Id), User, "All Events", mainWindowViewModel, () =>
             {
                 AllEvents?.Refresh();
             })
-            { 
-                DisplayVisitors = System.Windows.Visibility.Collapsed
+            {
+                DisplayVisitors = Visibility.Collapsed,
+                AllowJoinEvent = true,
+                AllowLeaveFeedback = true,
             };
 
             MyEvents.Refresh();

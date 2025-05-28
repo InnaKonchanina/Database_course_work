@@ -16,12 +16,12 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.OrganizerViewModels
             Locations = new ObservableCollection<LocationViewModel>();
             Artists = new ObservableCollection<UserViewModel>(
                DatabaseManager.Instance.GetAllArtist().Select(l => new UserViewModel(l)));
-            AllEvents = new EventsCardsViewModel("All Events", mainWindowViewModel, () =>
+            AllEvents = new EventsCardsViewModel(e => true, User, "All Events", mainWindowViewModel, () =>
             {
                 MyEvents?.Refresh();
                 RefreshLocations();
             });
-            MyEvents = new EventsCardsViewModel("All Events", mainWindowViewModel, () =>
+            MyEvents = new EventsCardsViewModel(e => e.OrganizerId == User.Id, User, "All Events", mainWindowViewModel, () =>
             {
                 AllEvents?.Refresh();
                 RefreshLocations();

@@ -24,5 +24,10 @@ namespace DatabaseCourceWork.DesktopApplication.Views.OrganizerViews
         {
             InitializeComponent();
         }
+
+        private void NumericOnly(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !int.TryParse(e.Text, out _);
+        }
     }
 }

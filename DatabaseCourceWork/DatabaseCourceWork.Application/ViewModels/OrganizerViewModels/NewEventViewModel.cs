@@ -129,7 +129,7 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.OrganizerViewModels
                 Organizer = Organizer,
                 StartDateTime = DateTime.Now,
                 EndDateTime = DateTime.Now.AddHours(1),
-                Location = Locations.FirstOrDefault()
+                Location = Locations.FirstOrDefault(),
             };
 
             foreach (var artist in Artists)

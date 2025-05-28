@@ -22,6 +22,7 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
             OrganizerId = culturalEvent.OrganizerId;
             Organizer = new UserViewModel(culturalEvent.Organizer);
             Status = culturalEvent.Status;
+            Price = culturalEvent.Price;
 
             Feedbacks = culturalEvent.Feedbacks
                 .Select(f => new FeedbackViewModel(f, false))
@@ -36,6 +37,8 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
                 .ToList();
         }
 
+        public bool IsUpcoming => EndDateTime >= DateTime.Now;
+        public int VisitorsCount => Visitors.Count;
         [ObservableProperty] private int id;
         [ObservableProperty] private string title;
         [ObservableProperty] private string? description;
@@ -46,6 +49,7 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
         [ObservableProperty] private int organizerId;
         [ObservableProperty] private UserViewModel organizer;
         [ObservableProperty] private string status;
+        [ObservableProperty] private int price;
         [ObservableProperty] private List<FeedbackViewModel> feedbacks = new();
         [ObservableProperty] private List<UserViewModel> artists = new();
         [ObservableProperty] private List<UserViewModel> visitors = new();
@@ -101,6 +105,7 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
                 EndDateTime = this.EndDateTime,
                 LocationId = this.Location?.Id ?? 0,
                 OrganizerId = this.OrganizerId,
+                Price = this.Price,
                 Status = this.Status ?? "scheduled",
                 Artists = this.Artists?.Select(a => a.ToModel()).ToList() ?? new List<User>(),
                 Visitors = this.Visitors?.Select(v => v.ToModel()).ToList() ?? new List<User>(),

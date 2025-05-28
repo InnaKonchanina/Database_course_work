@@ -21,6 +21,8 @@ namespace DatabaseCourceWork.DesktopApplication.Database.Models
 
         public int OrganizerId { get; set; }
 
+        public int Price { get; set; }
+
         public User Organizer { get; set; } = null!;
 
         public string Status { get; set; } = "scheduled";

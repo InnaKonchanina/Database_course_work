@@ -14,7 +14,7 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Login
         public LoginViewModel(MainWindowViewModel mainWindowViewModel)
             : base(mainWindowViewModel)
         {
-            Email = "stas@stas.com";
+            Email = "eve.visitor@example.com";
         }
 
         [ObservableProperty]

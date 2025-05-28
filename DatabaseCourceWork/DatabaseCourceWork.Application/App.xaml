@@ -20,6 +20,7 @@
                 <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/TextBoxStyle.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/ComboBoxStyle.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/DatePickerStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/DatabaseCourceWork.DesktopApplication;component/Views/Styles/ReusedControls.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style BasedOn="{StaticResource ControlButtonStyle}" TargetType="{x:Type Button}" />
             <Style TargetType="MenuItem">
@@ -27,6 +28,7 @@
                 <Setter Property="Command" Value="{Binding Command}" />
                 <Setter Property="ItemsSource" Value="{Binding MenuItems}" />
             </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

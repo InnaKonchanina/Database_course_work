@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS "CulturalEvents" (
     "EndDateTime" TEXT NOT NULL,
     "LocationId" INTEGER NOT NULL,
     "OrganizerId" INTEGER NOT NULL,
+    "Price" INTEGER NOT NULL,
     "Status" TEXT NOT NULL DEFAULT 'scheduled' CHECK("Status" IN ('scheduled', 'cancelled', 'completed')),
     FOREIGN KEY("OrganizerId") REFERENCES "Users"("Id"),
     FOREIGN KEY("LocationId") REFERENCES "Locations"("Id")

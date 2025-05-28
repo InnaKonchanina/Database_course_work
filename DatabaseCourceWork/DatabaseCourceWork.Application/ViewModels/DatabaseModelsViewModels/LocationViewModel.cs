@@ -3,6 +3,7 @@ using DatabaseCourceWork.DesktopApplication.Database.Models;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using DatabaseCourceWork.DesktopApplication.Database;
 
 namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewModels
 {
@@ -21,6 +22,8 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
             {
                 PhotoImage = LoadImage(Photo);
             }
+
+            UsingCount = DatabaseManager.Instance.GetUsingCountForLocation(Id);
         }
 
         [ObservableProperty] private int id;
@@ -29,6 +32,7 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
         [ObservableProperty] private string? address;
         [ObservableProperty] private int capacity;
         [ObservableProperty] private byte[]? photo;
+        [ObservableProperty] private int usingCount;
 
         private ImageSource? photoImage;
         public ImageSource? PhotoImage

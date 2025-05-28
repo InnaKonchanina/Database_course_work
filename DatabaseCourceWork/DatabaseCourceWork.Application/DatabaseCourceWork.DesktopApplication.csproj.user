@@ -72,6 +72,9 @@
     <Page Update="Views\Styles\RadioButtonStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Styles\ReusedControls.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Styles\TabControlStyle.xaml">
       <SubType>Designer</SubType>
     </Page>

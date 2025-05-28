@@ -33,15 +33,16 @@ namespace DatabaseCourceWork.DesktopApplication.Database
                 .Include(e => e.Organizer)
                 .ToList();
 
-            foreach (var e in events) 
+            foreach (var e in events)
             {
-                for (var i = 0; i< 10; i++)
-                {
-                    e.Artists.AddRange(GetArtistsByEventId(e.Id));
-                    e.Visitors.AddRange(GetVisitorsByEventId(e.Id));
-                    e.Feedbacks.AddRange(GetFeedbacksByEventId(e.Id));
-                }
-       
+                e.Artists.Clear();
+                e.Visitors.Clear();
+                e.Feedbacks.Clear();
+                e.Artists.AddRange(GetArtistsByEventId(e.Id));
+                e.Visitors.AddRange(GetVisitorsByEventId(e.Id));
+                e.Feedbacks.AddRange(GetFeedbacksByEventId(e.Id));
+
+
             }
             return events;
             var result = new List<CulturalEvent>();
@@ -75,9 +76,9 @@ namespace DatabaseCourceWork.DesktopApplication.Database
 
         public List<Feedback> GetFeedbacksByEventId(int eventId)
             => _context.Feedbacks
-                .Where(f=>f.CulturalEventId == eventId)
+                .Where(f => f.CulturalEventId == eventId)
                 .Include(f => f.User)
-                .Include(f=>f.CulturalEvent)
+                .Include(f => f.CulturalEvent)
             .ToList();
 
         public void SaveChanges()
@@ -107,7 +108,7 @@ namespace DatabaseCourceWork.DesktopApplication.Database
 
         internal IEnumerable<User> GetAllArtist()
         {
-            return GetAllUsers().Where(u=>u.UserRole == UserRole.Artist);
+            return GetAllUsers().Where(u => u.UserRole == UserRole.Artist);
         }
 
         internal void AddEvent(CulturalEvent culturalEvent)
@@ -135,6 +136,11 @@ namespace DatabaseCourceWork.DesktopApplication.Database
             }
 
             _context.SaveChanges();
+        }
+
+        internal int GetUsingCountForLocation(int id)
+        {
+            return GetAllEvents().Count(e => e.LocationId == id);
         }
     }
 }

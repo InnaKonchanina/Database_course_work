@@ -24,5 +24,10 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Base
             }
             return null;
         }
+
+        public virtual void Refresh()
+        {
+            // Do Nothing
+        }
     }
 }

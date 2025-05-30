@@ -22,5 +22,11 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Base
         {
             _mainWindowViewModel.NavigateToLogin();
         }
+
+        [RelayCommand]
+        private void Refresh()
+        {
+            RoleSpecificContent?.Refresh();
+        }
     }
 }

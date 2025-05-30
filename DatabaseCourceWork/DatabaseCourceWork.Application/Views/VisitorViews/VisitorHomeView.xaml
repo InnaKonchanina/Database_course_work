@@ -11,6 +11,9 @@
     mc:Ignorable="d">
     <Grid>
         <TabControl Style="{StaticResource LeftVerticalTabControl}">
+            <TabItem Header="Home" Style="{StaticResource LeftVerticalTabItem}">
+                <reusedcontrols:UserHome DataContext="{Binding User}" />
+            </TabItem>
             <TabItem Header="My Events" Style="{StaticResource LeftVerticalTabItem}">
                 <reusedcontrols:EventsCardsView DataContext="{Binding MyEvents}" />
             </TabItem>

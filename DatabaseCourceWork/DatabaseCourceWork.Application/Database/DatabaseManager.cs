@@ -1,7 +1,6 @@
 ﻿using DatabaseCourceWork.DesktopApplication.Database.Models;
 using DatabaseCourceWork.DesktopApplication.Database.Models.Enums;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace DatabaseCourceWork.DesktopApplication.Database
 {
@@ -20,11 +19,6 @@ namespace DatabaseCourceWork.DesktopApplication.Database
 
         public List<User> GetAllUsers()
             => _context.Users.ToList();
-
-        public List<User> GetUsersByRole(UserRole role)
-            => _context.Users
-                .Where(u => u.Role == role.ToString())
-                .ToList();
 
         public List<CulturalEvent> GetAllEvents()
         {
@@ -141,7 +135,8 @@ namespace DatabaseCourceWork.DesktopApplication.Database
             _context.VisitorToCulturalEventMap.Add(new VisitorToCulturalEventMap
             {
                 UserId = userId,
-                CulturalEventId = eventId
+                CulturalEventId = eventId,
+                RegisteredAt = DateTime.Now
             });
             _context.SaveChanges();
         }
@@ -149,6 +144,28 @@ namespace DatabaseCourceWork.DesktopApplication.Database
         internal void LeaveFeedback(Feedback feedback)
         {
             _context.Feedbacks.Add(feedback);
+            _context.SaveChanges();
+        }
+
+        internal void AddLocation(Location location)
+        {
+            _context.Locations.Add(location);
+            _context.SaveChanges();
+        }
+
+        internal void SaveUser(User user)
+        {
+            var existedUser = _context.Users.FirstOrDefault(u => u.Id == user.Id);
+            if (existedUser == null)
+            {
+                throw new InvalidOperationException($"User with Id {user.Id} not found.");
+            }
+
+            // Обновляем только изменяемые поля
+            existedUser.Experience = user.Experience;
+            existedUser.CreativeInterests = user.CreativeInterests;
+            existedUser.Photo = user.Photo;
+
             _context.SaveChanges();
         }
     }

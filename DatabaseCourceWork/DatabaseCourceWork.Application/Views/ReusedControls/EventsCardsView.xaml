@@ -200,26 +200,47 @@
                                     <Border
                                         Margin="2"
                                         Padding="6"
-                                        Background="#FFF0E0"
                                         CornerRadius="4">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="Background" Value="#FFF0E0" />
+                                                <!--  Default  -->
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding User.Role}" Value="visitor">
+                                                        <Setter Property="Background" Value="#FFF0E0" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding User.Role}" Value="artist">
+                                                        <Setter Property="Background" Value="#F3E5F5" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
                                         <StackPanel Width="280" Orientation="Vertical">
                                             <StackPanel
                                                 Margin="0,0,0,4"
                                                 VerticalAlignment="Center"
                                                 Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock
+                                                        FontSize="12"
+                                                        Foreground="#AA5500"
+                                                        Text="{Binding User.Name}" />
+                                                    <TextBlock
+                                                        FontSize="12"
+                                                        Foreground="#AA5500"
+                                                        Text="{Binding User.Role}" />
+                                                </StackPanel>
+
                                                 <TextBlock
-                                                    FontSize="12"
+                                                    Margin="20,0,0,0"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="16"
                                                     FontWeight="Bold"
-                                                    Foreground="#AA5500"
-                                                    Text="{Binding User.Name}" />
-                                                <TextBlock
-                                                    Margin="6,0,0,0"
-                                                    FontSize="12"
                                                     Foreground="#AA5500"
                                                     Text="{Binding Rating, StringFormat=Rating: {0}/5}" />
                                             </StackPanel>
                                             <TextBlock
-                                                FontSize="12"
+                                                FontSize="16"
                                                 Text="{Binding Comment}"
                                                 TextWrapping="Wrap" />
                                             <TextBlock

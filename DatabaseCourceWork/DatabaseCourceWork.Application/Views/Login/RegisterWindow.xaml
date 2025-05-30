@@ -8,21 +8,21 @@
     Title="Register"
     Width="400"
     Height="400"
-    FontSize="16"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
     <Window.Resources>
-        <Style BasedOn="{StaticResource GenericTextBlock}" TargetType="TextBlock">
-            <Setter Property="Margin" Value="0,8,10,5" />
+        <Style BasedOn="{StaticResource MenuHeaderStyle}" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,10,10,5" />
+
         </Style>
         <Style BasedOn="{StaticResource GeneralTextBoxStyle}" TargetType="TextBox">
-            <Setter Property="Margin" Value="0,8,10,5" />
+            <Setter Property="Margin" Value="0,10,10,5" />
         </Style>
         <Style BasedOn="{StaticResource BlueComboBoxStyle}" TargetType="ComboBox">
-            <Setter Property="Margin" Value="0,8,10,5" />
+            <Setter Property="Margin" Value="0,10,10,5" />
         </Style>
         <Style BasedOn="{StaticResource PasswordBoxStyle}" TargetType="PasswordBox">
-            <Setter Property="Margin" Value="0,8,10,5" />
+            <Setter Property="Margin" Value="0,10,10,5" />
         </Style>
     </Window.Resources>
     <Grid Margin="20">
@@ -51,17 +51,14 @@
         </Grid.ColumnDefinitions>
 
         <!--  Name  -->
-        <TextBlock VerticalAlignment="Center" Text="Name:" />
+        <TextBlock Text="Name:" />
         <TextBox
             Grid.Column="1"
             Text="{Binding Name, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
             ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
 
         <!--  Email  -->
-        <TextBlock
-            Grid.Row="1"
-            VerticalAlignment="Center"
-            Text="Email:" />
+        <TextBlock Grid.Row="1" Text="Email:" />
         <TextBox
             Grid.Row="1"
             Grid.Column="1"
@@ -69,10 +66,7 @@
             ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
 
         <!--  Password  -->
-        <TextBlock
-            Grid.Row="2"
-            VerticalAlignment="Center"
-            Text="Password:" />
+        <TextBlock Grid.Row="2" Text="Password:" />
         <PasswordBox
             x:Name="PasswordBox"
             Grid.Row="2"
@@ -81,10 +75,7 @@
             ToolTip="{Binding PasswordError}" />
 
         <!--  Confirm Password  -->
-        <TextBlock
-            Grid.Row="3"
-            VerticalAlignment="Center"
-            Text="Confirm Password:" />
+        <TextBlock Grid.Row="3" Text="Confirm Password:" />
         <PasswordBox
             x:Name="ConfirmPasswordBox"
             Grid.Row="3"
@@ -95,18 +86,17 @@
         <!--  Role  -->
         <TextBlock
             Grid.Row="4"
-            VerticalAlignment="Center"
+            Style="{StaticResource GenericTextBlock}"
             Text="Role:" />
         <ComboBox
             Grid.Row="4"
             Grid.Column="1"
             ItemsSource="{Binding UserRoles}"
-            SelectedItem="{Binding UserRole}" />
+            SelectedItem="{Binding SelectedUserRole}" />
 
         <!--  Experience  -->
         <TextBlock
             Grid.Row="5"
-            VerticalAlignment="Center"
             Text="Experience:"
             Visibility="{Binding ShouldDetailsBeVisible}" />
         <TextBox
@@ -119,7 +109,6 @@
         <!--  Creative Interests  -->
         <TextBlock
             Grid.Row="6"
-            VerticalAlignment="Center"
             Text="Creative Interests:"
             Visibility="{Binding ShouldDetailsBeVisible}" />
         <TextBox

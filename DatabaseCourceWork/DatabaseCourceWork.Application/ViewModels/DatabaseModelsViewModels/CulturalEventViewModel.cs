@@ -3,7 +3,9 @@ using CommunityToolkit.Mvvm.Input;
 using DatabaseCourceWork.DesktopApplication.Database;
 using DatabaseCourceWork.DesktopApplication.Database.Models;
 using DatabaseCourceWork.DesktopApplication.Utils.DatabaseCourceWork.DesktopApplication.Services;
+using DatabaseCourceWork.DesktopApplication.ViewModels.OrganizerViewModels;
 using DatabaseCourceWork.DesktopApplication.ViewModels.Reused;
+using DatabaseCourceWork.DesktopApplication.ViewModels.VisitorViewModels;
 using DatabaseCourceWork.DesktopApplication.Views.ReusedControls;
 using System.Windows;
 
@@ -57,7 +59,7 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
                 JoinEventButtonVisibility = Visibility.Visible;
             }
 
-            if (!IsUpcoming && allowLeaveFeedback && Visitors.Any(v => v.Id == _activeUser.Id))
+            if (!IsUpcoming && allowLeaveFeedback && (Visitors.Any(v => v.Id == _activeUser.Id) || Artists.Any(a=> a.Id == _activeUser.Id)))
             {
                 LeaveFeedbackButtonVisibility = Visibility.Visible;
             }
@@ -140,9 +142,18 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
         [RelayCommand]
         private void JoinEvent()
         {
-            DatabaseManager.Instance.JoinEvent(_activeUser.Id, Id);
-            _refresh();
-            MessageBoxProvider.Instance.Show($"🎉 You’ve successfully joined the event! We’ve saved your spot, {_activeUser.Name}. Don’t forget to bring your good vibes! 😊");
+            var viewModel = new PaymentViewModel(Title, Price);
+            var dialog = new PaymentDialog { DataContext = viewModel };
+            bool? result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                DatabaseManager.Instance.JoinEvent(_activeUser.Id, Id);
+                _refresh();
+                MessageBoxProvider.Instance.Show($"🎉 You’ve successfully joined the event! We’ve saved your spot, {_activeUser.Name}. Don’t forget to bring your good vibes! 😊");
+            }
+
+            
         }
 
         public CulturalEvent ToModel()

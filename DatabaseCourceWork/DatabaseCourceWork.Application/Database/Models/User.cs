@@ -12,6 +12,8 @@ namespace DatabaseCourceWork.DesktopApplication.Database.Models
         public string? Experience { get; set; }
         public string? CreativeInterests { get; set; }
 
+        public byte[]? Photo { get; set; }
+
         public UserRole UserRole
         {
             get
@@ -25,10 +27,5 @@ namespace DatabaseCourceWork.DesktopApplication.Database.Models
                 return Enum.Parse<UserRole>(formattedRole);
             }
         }
-
-        public ICollection<ArtistToCulturalEventMap> ArtistEvents { get; set; } = new List<ArtistToCulturalEventMap>();
-        public ICollection<VisitorToCulturalEventMap> VisitorEvents { get; set; } = new List<VisitorToCulturalEventMap>();
-        public ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
-        public ICollection<CulturalEvent> OrganizedEvents { get; set; } = new List<CulturalEvent>();
     }
 }

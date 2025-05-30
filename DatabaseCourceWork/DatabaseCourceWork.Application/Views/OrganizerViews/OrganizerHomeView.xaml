@@ -13,76 +13,8 @@
     <Grid>
         <TabControl Style="{StaticResource LeftVerticalTabControl}">
             <TabItem Header="Home" Style="{StaticResource LeftVerticalTabItem}">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel
-                        Margin="20"
-                        HorizontalAlignment="Center"
-                        Orientation="Vertical">
-                        <Border
-                            Width="350"
-                            Margin="20"
-                            Padding="20"
-                            Background="White"
-                            BorderBrush="#CCC"
-                            BorderThickness="1"
-                            CornerRadius="6">
-                            <StackPanel>
-                                <TextBlock
-                                    FontSize="18"
-                                    FontWeight="Bold"
-                                    Text="{Binding User.Name}" />
-
-                                <TextBlock
-                                    Margin="0,4,0,20"
-                                    FontStyle="Italic"
-                                    Foreground="Gray"
-                                    Text="{Binding User.Email}" />
-
-                                <!--  Role  -->
-                                <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                                    <TextBlock
-                                        Width="130"
-                                        FontWeight="SemiBold"
-                                        Text="Role:" />
-                                    <TextBlock Text="{Binding User.Role}" />
-                                </StackPanel>
-
-                                <!--  Experience  -->
-                                <StackPanel
-                                    Margin="0,0,0,10"
-                                    VerticalAlignment="Top"
-                                    Orientation="Horizontal">
-                                    <TextBlock
-                                        Width="130"
-                                        FontWeight="SemiBold"
-                                        Text="Experience:" />
-                                    <TextBlock
-                                        MaxWidth="190"
-                                        Text="{Binding User.Experience}"
-                                        TextWrapping="Wrap" />
-                                </StackPanel>
-
-                                <!--  Creative Interests  -->
-                                <StackPanel
-                                    Margin="0"
-                                    VerticalAlignment="Top"
-                                    Orientation="Horizontal">
-                                    <TextBlock
-                                        Width="130"
-                                        FontWeight="SemiBold"
-                                        Text="Creative Interests:" />
-                                    <TextBlock
-                                        MaxWidth="190"
-                                        Text="{Binding User.CreativeInterests}"
-                                        TextWrapping="Wrap" />
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </ScrollViewer>
+                <reusedcontrols:UserHome DataContext="{Binding User}" />
             </TabItem>
-
-
 
             <TabItem Header="New Event" Style="{StaticResource LeftVerticalTabItem}">
                 <ScrollViewer Padding="10" VerticalScrollBarVisibility="Auto">
@@ -116,7 +48,8 @@
                         <ComboBox
                             DisplayMemberPath="Name"
                             ItemsSource="{Binding NewEvent.Locations}"
-                            SelectedItem="{Binding NewEvent.NewEvent.Location, Mode=TwoWay}" />
+                            SelectedItem="{Binding NewEvent.NewEvent.Location, Mode=TwoWay}"
+                            Style="{StaticResource BlueComboBoxStyle}" />
 
                         <!--  Organizer (readonly)  -->
                         <TextBlock
@@ -175,7 +108,7 @@
                         <Button
                             Margin="0,20,0,0"
                             Padding="6"
-                            HorizontalAlignment="Left"
+                            HorizontalAlignment="Center"
                             Command="{Binding NewEvent.SaveNewEventCommand}"
                             Content="Save Event" />
                     </StackPanel>
@@ -212,33 +145,48 @@
                                         BorderBrush="#D4A373"
                                         BorderThickness="1"
                                         CornerRadius="6">
-                                        <StackPanel>
-                                            <TextBlock
-                                                FontSize="16"
-                                                FontWeight="Bold"
-                                                Text="{Binding Name}" />
-                                            <TextBlock
-                                                Margin="0,2,0,4"
-                                                Foreground="Gray"
-                                                Text="{Binding Email}" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <!--  Фото артиста  -->
+                                            <Image
+                                                Width="80"
+                                                Height="80"
+                                                Margin="0,0,10,0"
+                                                VerticalAlignment="Top"
+                                                ClipToBounds="True"
+                                                SnapsToDevicePixels="True"
+                                                Source="{Binding PhotoImage}"
+                                                Stretch="UniformToFill" />
 
-                                            <TextBlock FontWeight="SemiBold" Text="Experience:" />
-                                            <TextBlock
-                                                MaxWidth="260"
-                                                Text="{Binding Experience}"
-                                                TextWrapping="Wrap" />
+                                            <!--  Текстовая информация  -->
+                                            <StackPanel>
+                                                <TextBlock
+                                                    FontSize="16"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding Name}" />
+                                                <TextBlock
+                                                    Margin="0,2,0,4"
+                                                    Foreground="Gray"
+                                                    Text="{Binding Email}" />
 
-                                            <TextBlock
-                                                Margin="0,5,0,0"
-                                                FontWeight="SemiBold"
-                                                Text="Creative Interests:" />
-                                            <TextBlock
-                                                MaxWidth="260"
-                                                Text="{Binding CreativeInterests}"
-                                                TextWrapping="Wrap" />
+                                                <TextBlock FontWeight="SemiBold" Text="Experience:" />
+                                                <TextBlock
+                                                    MaxWidth="200"
+                                                    Text="{Binding Experience}"
+                                                    TextWrapping="Wrap" />
+
+                                                <TextBlock
+                                                    Margin="0,5,0,0"
+                                                    FontWeight="SemiBold"
+                                                    Text="Creative Interests:" />
+                                                <TextBlock
+                                                    MaxWidth="200"
+                                                    Text="{Binding CreativeInterests}"
+                                                    TextWrapping="Wrap" />
+                                            </StackPanel>
                                         </StackPanel>
                                     </Border>
                                 </DataTemplate>
+
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </StackPanel>
@@ -307,6 +255,86 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="New Location" Style="{StaticResource LeftVerticalTabItem}">
+                <ScrollViewer Padding="10" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Width="400" Orientation="Vertical">
+
+                        <!--  Name  -->
+                        <TextBlock FontWeight="SemiBold" Text="Name:" />
+                        <TextBox Text="{Binding NewLocation.NewLocation.Name, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <!--  Description  -->
+                        <TextBlock
+                            Margin="0,10,0,0"
+                            FontWeight="SemiBold"
+                            Text="Description:" />
+                        <TextBox
+                            Height="80"
+                            AcceptsReturn="True"
+                            Text="{Binding NewLocation.NewLocation.Description, UpdateSourceTrigger=PropertyChanged}"
+                            TextWrapping="Wrap" />
+
+                        <!--  Address  -->
+                        <TextBlock
+                            Margin="0,10,0,0"
+                            FontWeight="SemiBold"
+                            Text="Address:" />
+                        <TextBox Text="{Binding NewLocation.NewLocation.Address, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <!--  Capacity  -->
+                        <TextBlock
+                            Margin="0,10,0,0"
+                            FontWeight="SemiBold"
+                            Text="Capacity:" />
+                        <TextBox
+                            MaxLength="6"
+                            PreviewTextInput="NumericOnly"
+                            Text="{Binding NewLocation.NewLocation.Capacity, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <!--  Photo  -->
+                        <TextBlock
+                            Margin="0,10,0,0"
+                            FontWeight="SemiBold"
+                            Text="Photo:" />
+
+                        <Image
+                            Width="500"
+                            Height="500"
+                            Margin="10,0,0,0"
+                            Source="{Binding NewLocation.NewLocation.PhotoImage}" />
+                        <Button
+                            Padding="4,2"
+                            Command="{Binding NewLocation.SelectPhotoCommand}"
+                            Content="Select Photo..." />
+
+
+                        <!--  Validation Error  -->
+                        <TextBlock
+                            Margin="0,10,0,0"
+                            Foreground="Red"
+                            Text="{Binding NewLocation.ValidationErrorMessage}"
+                            TextWrapping="Wrap" />
+
+                        <!--  Buttons  -->
+                        <StackPanel
+                            Margin="0,20,0,0"
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal">
+                            <Button
+                                Margin="0,0,10,0"
+                                Padding="6"
+                                Command="{Binding NewLocation.SaveCommand}"
+                                Content="Save Location" />
+                            <Button
+                                Padding="6"
+                                Command="{Binding NewLocation.CancelCommand}"
+                                Content="Cancel" />
+                        </StackPanel>
+
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

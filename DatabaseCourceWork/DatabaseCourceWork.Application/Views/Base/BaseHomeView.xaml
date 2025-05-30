@@ -56,6 +56,10 @@
                     Text="{Binding User.Role, FallbackValue=Administrators}" />
                 <Button
                     Grid.Column="1"
+                    Command="{Binding RefreshCommand}"
+                    Content="Refresh" />
+                <Button
+                    Grid.Column="1"
                     Command="{Binding LogoutCommand}"
                     Content="Logout" />
             </StackPanel>

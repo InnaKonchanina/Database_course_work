@@ -15,8 +15,8 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Login
     {
         public RegisterViewModel(MainWindowViewModel mainWindowViewModel) : base(mainWindowViewModel)
         {
-            UserRoles = new ObservableCollection<UserRole> { UserRole.Visitor, UserRole.Artist, UserRole.Organizer };
-            UserRole = UserRoles.First();
+            UserRoles = new ObservableCollection<string> { "Visitor", "Artist", "Organizer" };
+            SelectedUserRole = UserRoles.First();
         }
 
         [ObservableProperty]
@@ -52,9 +52,9 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Login
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(ShouldDetailsBeVisible))]
-        private UserRole userRole;
+        private string selectedUserRole;
 
-        public ObservableCollection<UserRole> UserRoles { get; }
+        public ObservableCollection<string> UserRoles { get; }
 
         [ObservableProperty]
         private string experience;
@@ -66,7 +66,7 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Login
         {
             get
             {
-                return UserRole == UserRole.Visitor ? Visibility.Hidden : Visibility.Visible;
+                return (UserRole)Enum.Parse(typeof(UserRole), SelectedUserRole) == UserRole.Visitor ? Visibility.Hidden : Visibility.Visible;
             }
         }
 
@@ -98,7 +98,7 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Login
                     PasswordHash = Password,
                     Experience = Experience,
                     CreativeInterests = CreativeInterests,
-                    Role = UserRole.ToString(),
+                    Role = SelectedUserRole.ToString(),
                     Name = Name,
                 });
 

@@ -41,6 +41,11 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
             private set => SetProperty(ref photoImage, value);
         }
 
+        partial void OnPhotoChanged(byte[]? value)
+        {
+            PhotoImage = value != null ? LoadImage(value) : null;
+        }
+
         private ImageSource? LoadImage(byte[] imageData)
         {
             try

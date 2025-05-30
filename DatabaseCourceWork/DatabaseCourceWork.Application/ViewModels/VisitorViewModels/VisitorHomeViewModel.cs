@@ -7,7 +7,6 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.VisitorViewModels
 {
     internal class VisitorHomeViewModel : BaseHomeViewModel
     {
-
         public VisitorHomeViewModel(User user, MainWindowViewModel mainWindowViewModel)
             : base(user, mainWindowViewModel)
         {
@@ -38,5 +37,13 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.VisitorViewModels
         public EventsCardsViewModel AllEvents { get; }
 
         public EventsCardsViewModel MyEvents { get; }
+
+        public override void Refresh()
+        {
+            base.Refresh();
+
+            MyEvents.Refresh();
+            AllEvents.Refresh();
+        }
     }
 }

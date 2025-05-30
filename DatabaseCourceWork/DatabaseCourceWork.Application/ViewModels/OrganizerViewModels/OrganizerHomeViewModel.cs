@@ -33,6 +33,10 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.OrganizerViewModels
             NewEvent = new NewEventViewModel(mainWindowViewModel, User, Locations,
                 new ObservableCollection<SelectableUserViewModel>(Artists.Select(a => new SelectableUserViewModel(a))));
             NewEvent.SaveCompleted += OnNewEventSaved;
+
+            NewLocation = new NewLocationViewModel(mainWindowViewModel);
+            newLocation.SaveCompleted += NewLocation_SaveCompleted;
+
         }
 
         public ObservableCollection<LocationViewModel> Locations { get; }
@@ -46,10 +50,18 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.OrganizerViewModels
         [ObservableProperty]
         private NewEventViewModel newEvent;
 
+        [ObservableProperty]
+        private NewLocationViewModel newLocation;
+
         private void OnNewEventSaved(object? sender, EventArgs e)
         {
             MyEvents.Refresh();
             AllEvents.Refresh();
+        }
+
+        private void NewLocation_SaveCompleted(object? sender, EventArgs e)
+        {
+            RefreshLocations();
         }
 
         private void RefreshLocations()
@@ -59,6 +71,16 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.OrganizerViewModels
             {
                 Locations.Add(item);
             }
+        }
+
+        public override void Refresh()
+        {
+            base.Refresh();
+
+            MyEvents.Refresh();
+            AllEvents.Refresh();
+
+            RefreshLocations();
         }
     }
 }

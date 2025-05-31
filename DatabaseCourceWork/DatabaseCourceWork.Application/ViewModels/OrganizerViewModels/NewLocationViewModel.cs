@@ -47,7 +47,7 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.OrganizerViewModels
         [RelayCommand]
         private void Cancel()
         {
-            SaveCompleted?.Invoke(this, EventArgs.Empty);
+            ResetNewLocation();
         }
 
         [RelayCommand]

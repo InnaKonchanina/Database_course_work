@@ -30,7 +30,7 @@
             FontSize="14"
             FontWeight="Bold"
             Foreground="DarkGreen"
-            Text="{Binding Price, StringFormat=Price: {0:C}}" />
+            Text="{Binding Price, StringFormat=Price: ₴{0}}" />
 
         <!--  Card Number  -->
         <TextBlock
@@ -42,7 +42,8 @@
             Grid.Column="1"
             Margin="5,4"
             MaxLength="19"
-            Text="{Binding CardNumber, UpdateSourceTrigger=PropertyChanged}" />
+            Text="{Binding CardNumber, UpdateSourceTrigger=PropertyChanged}"
+            ToolTip="Enter your 12 digit card number (e.g., 1234 5678 9012 3456)" />
 
         <!--  Expiry Date  -->
         <TextBlock
@@ -54,7 +55,8 @@
             Grid.Column="1"
             Margin="5,4"
             MaxLength="5"
-            Text="{Binding ExpiryDate, UpdateSourceTrigger=PropertyChanged}" />
+            Text="{Binding ExpiryDate, UpdateSourceTrigger=PropertyChanged}"
+            ToolTip="Enter expiry date in MM/YY format (e.g., 08/27)" />
 
         <!--  CVV  -->
         <TextBlock
@@ -67,7 +69,8 @@
             Width="60"
             Margin="5,4"
             MaxLength="4"
-            Text="{Binding Cvv, UpdateSourceTrigger=PropertyChanged}" />
+            Text="{Binding Cvv, UpdateSourceTrigger=PropertyChanged}"
+            ToolTip="Enter 3-digit code from the back of your card" />
 
         <!--  Error Message  -->
         <TextBlock

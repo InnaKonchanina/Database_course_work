@@ -305,7 +305,20 @@
                             Width="500"
                             Height="500"
                             Margin="10,0,0,0"
-                            Source="{Binding NewLocation.NewLocation.PhotoImage}" />
+                            Source="{Binding NewLocation.NewLocation.PhotoImage}">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding NewLocation.NewLocation.PhotoImage}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+
                         <Button
                             Padding="4,2"
                             Command="{Binding NewLocation.SelectPhotoCommand}"

@@ -43,13 +43,13 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.VisitorViewModels
 
             if (string.IsNullOrWhiteSpace(CardNumber) || CardNumber.Length < 12)
             {
-                ErrorMessage = "Invalid card number.";
+                ErrorMessage = "Invalid card number. Mmust be 12 numbers.";
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(ExpiryDate) || !System.Text.RegularExpressions.Regex.IsMatch(ExpiryDate, @"^(0[1-9]|1[0-2])\/\d{2}$"))
             {
-                ErrorMessage = "Invalid expiry date format.";
+                ErrorMessage = "Invalid expiry date format. Format is MM/YY.";
                 return;
             }
 

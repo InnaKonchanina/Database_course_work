@@ -17,7 +17,7 @@ namespace DatabaseCourceWork.DesktopApplication.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
+
 
             // Optional: enforce composite uniqueness or keys if needed
         }

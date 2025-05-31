@@ -12,12 +12,12 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewMod
             UserId = feedback.UserId;
             User = new UserViewModel(feedback.User);
 
-            if (loadEvent) 
+            if (loadEvent)
             {
                 CulturalEvent = new CulturalEventViewModel(User, feedback.CulturalEvent, () => { });
             }
-            
-            
+
+
             Rating = feedback.Rating;
             Comment = feedback.Comment;
         }

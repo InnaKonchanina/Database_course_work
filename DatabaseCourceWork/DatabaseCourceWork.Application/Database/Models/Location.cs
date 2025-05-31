@@ -13,7 +13,5 @@
         public int? Capacity { get; set; }
 
         public byte[]? Photo { get; set; }
-
-        public ICollection<CulturalEvent> CulturalEvents { get; set; } = new List<CulturalEvent>();
     }
 }

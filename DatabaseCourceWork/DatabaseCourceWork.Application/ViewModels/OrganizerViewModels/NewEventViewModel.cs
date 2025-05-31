@@ -4,12 +4,7 @@ using DatabaseCourceWork.DesktopApplication.Database;
 using DatabaseCourceWork.DesktopApplication.Utils.DatabaseCourceWork.DesktopApplication.Services;
 using DatabaseCourceWork.DesktopApplication.ViewModels.Base;
 using DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewModels;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DatabaseCourceWork.DesktopApplication.ViewModels.OrganizerViewModels
 {
@@ -18,7 +13,7 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.OrganizerViewModels
         public NewEventViewModel(MainWindowViewModel mainWindowViewModel, UserViewModel organizer,
                              ObservableCollection<LocationViewModel> locations,
                              ObservableCollection<SelectableUserViewModel> allArtists)
-            :base(mainWindowViewModel)
+            : base(mainWindowViewModel)
         {
             Organizer = organizer;
             Locations = locations;

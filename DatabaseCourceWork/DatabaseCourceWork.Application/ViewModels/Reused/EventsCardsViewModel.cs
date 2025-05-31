@@ -60,7 +60,7 @@ namespace DatabaseCourceWork.DesktopApplication.ViewModels.Reused
             // Reload events or add the newly created event to collections
             Events.Clear();
             IEnumerable<CulturalEventViewModel> allEvents = DatabaseManager.Instance.GetAllEvents().
-                Where(e=> _eventFilter(e)).
+                Where(e => _eventFilter(e)).
                 Select(evm => new CulturalEventViewModel(ActiveUser, evm, () => Refresh(true), AllowLeaveFeedback, AllowJoinEvent)).OrderBy(e => e.StartDateTime);
 
             foreach (var ev in allEvents)

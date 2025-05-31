@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using DatabaseCourceWork.DesktopApplication.Database;
 using DatabaseCourceWork.DesktopApplication.Database.Models;
 using System.IO;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
-using DatabaseCourceWork.DesktopApplication.Database;
+using System.Windows.Media.Imaging;
 
 namespace DatabaseCourceWork.DesktopApplication.ViewModels.DatabaseModelsViewModels
 {

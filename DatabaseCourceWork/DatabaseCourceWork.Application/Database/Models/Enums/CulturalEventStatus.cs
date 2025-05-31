@@ -1,8 +1,8 @@
 ﻿namespace DatabaseCourceWork.DesktopApplication.Database.Models.Enums
 {
-    internal enum CulturalEventStatus 
+    internal enum CulturalEventStatus
     {
-        Scheduled, 
+        Scheduled,
         Cancelled,
         Completed
     }

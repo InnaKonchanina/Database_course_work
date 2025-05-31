@@ -9,11 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Database\DbFiles\FestivalDB - ClearDB.db" />
+    <None Remove="Database\DbFiles\FestivalDB Initial.db" />
     <None Remove="Database\DbFiles\FestivalDB.db" />
     <None Remove="Database\DbFiles\FestivalDBInitial.db" />
+    <None Remove="Small.PNG" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Database\DbFiles\Old\FestivalDB - ClearDB.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\DbFiles\Old\FestivalDB Initial.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Database\DbFiles\FestivalDB.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -26,6 +35,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Small.PNG" />
   </ItemGroup>
 
 </Project>

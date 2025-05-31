@@ -14,11 +14,10 @@
     xmlns:visitorVMs="clr-namespace:DatabaseCourceWork.DesktopApplication.ViewModels.VisitorViewModels"
     xmlns:visitorViews="clr-namespace:DatabaseCourceWork.DesktopApplication.Views.VisitorViews"
     xmlns:vm="clr-namespace:DatabaseCourceWork.DesktopApplication.ViewModels.Login"
-    Title="MainWindow"
-    Width="800"
-    Height="450"
+    Title="FestivAll"
+    Width="1200"
+    Height="700"
     WindowStartupLocation="CenterScreen"
-    WindowState="Maximized"
     mc:Ignorable="d">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:LoginViewModel}">
